@@ -68,7 +68,7 @@ func ScrapeNetflix(url string) ([]Item, error) {
 		return nil, err
 	}
 
-	root := doc.Find(`ul[data-uia="top10-cards"]`).First()
+    root := doc.Find(`ul[data-uia="top10-cards"]`).First()
 	if root.Length() == 0 {
 		return nil, errors.New("no recognized card list found")
 	}
@@ -77,9 +77,9 @@ func ScrapeNetflix(url string) ([]Item, error) {
 	root.Find("li").Each(func(i int, s *goquery.Selection) {
 		card := s.Find(`div[data-uia="top10-card"][data-sel="top10-card"]`).First()
 		poster := extractBackgroundURL(card.AttrOr("style", ""))
-		title := strings.TrimSpace(s.Find(`div[data-uia=\"top10-card-logo\"] img`).First().AttrOr("alt", ""))
-		play := s.Find(`a[data-uia=\"play-on-netflix-link\"]`).First().AttrOr("href", "")
-		detail := s.Find(`a[data-uia=\"discover-more-link\"]`).First().AttrOr("href", "")
+        title := strings.TrimSpace(s.Find(`div[data-uia="top10-card-logo"] img`).First().AttrOr("alt", ""))
+        play := s.Find(`a[data-uia="play-on-netflix-link"]`).First().AttrOr("href", "")
+        detail := s.Find(`a[data-uia="discover-more-link"]`).First().AttrOr("href", "")
 
 		item := Item{
 			Rank:      i + 1,
